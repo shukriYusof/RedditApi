@@ -34,8 +34,8 @@ class main extends Configure
         $searchInput = $helper->ask($input, $output, $question2);
 
         return $this->searchPost($output, [
-            'subreddit' => preg_replace("/[^A-Za-z0-9\-\']/", '', $subreddit),
-            'search_term' => preg_replace("/[^A-Za-z0-9\-\']/", '', $searchInput)
+            'subreddit' => strtolower(preg_replace("/[^A-Za-z0-9\-\']/", '', $subreddit)),
+            'search_term' => strtolower(preg_replace("/[^A-Za-z0-9\-\']/", '', $searchInput))
         ]);
 
     }

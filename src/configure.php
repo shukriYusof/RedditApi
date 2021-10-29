@@ -1,6 +1,8 @@
 <?php
 namespace Osky;
 
+use DateTime;
+use DateTimeZone;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Table;
@@ -44,7 +46,10 @@ class Configure extends Command
 
             $tableRow = [];
     
-            foreach (array_slice($result['data']['children'], 0, 5) as $post) {
+            date_default_timezone_set('Asia/Kuala_Lumpur');
+
+            foreach (array_slice($result['data']['children'], 0, 100) as $post) {
+                
                 $tableRow[] = [
                     date("Y-m-d H:i:s ",$post['data']['created']),
                     substr($post['data']['title'], 0, 30),
