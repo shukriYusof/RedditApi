@@ -2,9 +2,9 @@
 
 namespace Reddit\Service;
 
-use Reddit\Interface\RedditServiceInterface;
-use Reddit\Model\Post;
 use GuzzleHttp\Client;
+use Reddit\Model\Post;
+use Reddit\Interface\RedditServiceInterface;
 
 class RedditService implements RedditServiceInterface
 {
@@ -15,17 +15,22 @@ class RedditService implements RedditServiceInterface
         $this->client = $client;
     }
 
-    public function fetchPosts(string $subreddit): array
+    public function search(string $subreddit, string $searchTerm): array
     {
-        $response = $this->client->request('GET', "https://www.reddit.com/r/{$subreddit}/new.json?limit=100");
+        $subreddit = str_replace(' ', '', $subreddit);
+        
+        $url = "https://www.reddit.com/r/{$subreddit}/search.json?q=" . urlencode($searchTerm) . "&limit=100&restrict_sr=on";
+        $response = $this->client->request('GET', $url);
+
         $data = json_decode($response->getBody()->getContents(), true);
-        
-        if (!isset($data['data']['children'])) {
-            throw new \RuntimeException('Invalid response from Reddit API.');
+
+        $posts = [];
+        if (isset($data['data']['children'])) {
+            foreach ($data['data']['children'] as $child) {
+                $posts[] = new Post($child['data']);
+            }
         }
-        
-        return array_map(function($post) {
-            return new Post($post['data']);
-        }, $data['data']['children']);
+
+        return $posts;
     }
 }
