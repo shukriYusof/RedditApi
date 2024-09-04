@@ -1,11 +1,10 @@
 {
-    "name": "shukri/osky",
-    "description": "this was a testing that osky provided.",
+    "name": "shukri/reddit-api",
+    "description": "CLI application for searching Reddit posts.",
     "autoload": {
         "psr-4": {
-            "Osky\\": "src/"
-        },
-        "classmap": ["src"]
+            "Reddit\\": "src/"
+        }
     },
     "authors": [
         {
@@ -14,6 +13,7 @@
         }
     ],
     "require": {
-        "symfony/console": "^5.3"
+        "symfony/console": "^5.3",
+        "guzzlehttp/guzzle": "^7.0"
     }
 }
