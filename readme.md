@@ -24,7 +24,7 @@ The **Reddit CLI Search Tool** is a command-line application designed to search 
 Clone the repository to your local machine using Git:
 
 ```bash
-git clone https://github.com/yourusername/reddit-cli-search.git
+git clone https://github.com/shukriYusof/reddit-cli-search.git
 cd reddit-cli-search
 ```
 
